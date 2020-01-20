@@ -12,6 +12,8 @@ export class AppComponent {
     const suggestedName = 'Superuser';
   }
   defaultQuestion = "teacher";
+  answer = '';
+
   // onSubmit(form: NgForm){
   //   console.log('submitted');
   //   console.log(form);
