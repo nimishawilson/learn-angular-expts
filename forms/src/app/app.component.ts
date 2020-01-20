@@ -13,6 +13,7 @@ export class AppComponent {
   }
   defaultQuestion = "teacher";
   answer = '';
+  genders = ['male', 'female'];
 
   // onSubmit(form: NgForm){
   //   console.log('submitted');
