@@ -25,8 +25,8 @@ this.http
 }
 
 fetchPosts(){
-this.isLoading = true;
-    this.http.get('https://testapp-7833f.firebaseio.com/posts.json')
+//this.isLoading = true;
+   return this.http.get('https://testapp-7833f.firebaseio.com/posts.json')
     .pipe(map( (responseData: {[key: string] : Post}) => {
       const postsArray: Post[] = [];
       for (const key in responseData){
@@ -35,12 +35,8 @@ this.isLoading = true;
         }
       }
       return postsArray;
-    }))
-    .subscribe(posts => {
-      // this.isLoading = false;
-      // console.log(posts);
-      // this.loadedPosts = posts;
-    });
+    }));
+    
 }
 
 }
