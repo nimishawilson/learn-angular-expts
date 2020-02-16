@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from "rxjs/operators";
 import { Post } from "./post.model";
+import { PostService } from "./post.service";
 
 @Component({
   selector: 'app-root',
@@ -12,28 +13,21 @@ export class AppComponent implements OnInit {
   loadedPosts: Post[] = [];
   isLoading = false;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private postService: PostService) {}
 
   ngOnInit() {
-    this.fetchPosts();
+    this.postService.fetchPosts();
   }
 
   onCreatePost(postData: Post) {
     // Send Http request
-    this.http
-      .post<{ name: string }>(
-        'https://testapp-7833f.firebaseio.com/posts.json',
-        postData
-      )
-      .subscribe(responseData => {
-        console.log(responseData);
-      });
-      console.log(postData)
+    this.postService.createStorePost(postData.title, postData.content);
+    
   }
 
   onFetchPosts() {
     // Send Http request
-    this.fetchPosts();
+    this.postService.fetchPosts();
   }
 
   onClearPosts() {
@@ -41,21 +35,7 @@ export class AppComponent implements OnInit {
   }
 
   private fetchPosts(){
-    this.isLoading = true;
-    this.http.get('https://testapp-7833f.firebaseio.com/posts.json')
-    .pipe(map( (responseData: {[key: string] : Post}) => {
-      const postsArray: Post[] = [];
-      for (const key in responseData){
-        if(responseData.hasOwnProperty(key)){
-          postsArray.push({...responseData[key], id: key });
-        }
-      }
-      return postsArray;
-    }))
-    .subscribe(posts => {
-      this.isLoading = false;
-      console.log(posts);
-      this.loadedPosts = posts;
-    });
+    
+
   }
 }
