@@ -25,7 +25,6 @@ this.http
 }
 
 fetchPosts(){
-//this.isLoading = true;
    return this.http.get('https://testapp-7833f.firebaseio.com/posts.json')
     .pipe(map( (responseData: {[key: string] : Post}) => {
       const postsArray: Post[] = [];
@@ -38,5 +37,10 @@ fetchPosts(){
     }));
     
 }
+
+deletePosts(){
+  return this.http.delete('https://testapp-7833f.firebaseio.com/posts.json')
+}
+
 
 }
