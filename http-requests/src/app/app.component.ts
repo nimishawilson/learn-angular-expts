@@ -3,7 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from "rxjs/operators";
 import { Post } from "./post.model";
 import { PostService } from "./post.service";
-import { Subject } from 'rxjs';
+//import { Subject } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
