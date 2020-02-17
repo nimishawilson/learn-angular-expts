@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Post } from "./post.model";
 import { map, catchError } from "rxjs/operators";
 import { Subject, throwError } from 'rxjs';
@@ -29,7 +29,10 @@ this.http
 }
 
 fetchPosts(){
-   return this.http.get('https://testapp-7833f.firebaseio.com/posts.json')
+   return this.http.get('https://testapp-7833f.firebaseio.com/posts.json',
+   {
+      headers: new HttpHeaders({'custom-header' : 'hello'})
+   })
     .pipe(map( (responseData: {[key: string] : Post}) => {
       const postsArray: Post[] = [];
       for (const key in responseData){
