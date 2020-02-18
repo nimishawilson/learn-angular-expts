@@ -39,7 +39,8 @@ fetchPosts(){
    {
       headers: new HttpHeaders({'custom-header' : 'hello'}),
       //params: new HttpParams().set('print','pretty')
-      params: searchParams
+      params: searchParams,
+      responseType: 'json'
    })
     .pipe(map( (responseData: {[key: string] : Post}) => {
       const postsArray: Post[] = [];
