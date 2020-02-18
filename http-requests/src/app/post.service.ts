@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpEventType } from '@angular/common/http';
 import { Post } from "./post.model";
-import { map, catchError } from "rxjs/operators";
+import { map, catchError, tap } from "rxjs/operators";
 import { Subject, throwError } from 'rxjs';
 
 @Injectable({
@@ -18,7 +18,10 @@ createStorePost(title: string, content: string){
 this.http
       .post<{ name: string }>(
         'https://testapp-7833f.firebaseio.com/posts.json',
-        postData
+        postData,
+        {
+          observe: 'response'
+        }
       )
       .subscribe(responseData => {
         console.log(responseData);
@@ -55,7 +58,21 @@ fetchPosts(){
 }
 
 deletePosts(){
-  return this.http.delete('https://testapp-7833f.firebaseio.com/posts.json')
+  return this.http.delete('https://testapp-7833f.firebaseio.com/posts.json',
+  {
+    observe: 'events'
+  }
+  ).pipe(tap(event => {
+    console.log(event);
+    if(event.type === HttpEventType.Sent){
+
+    }
+
+  if(event.type === HttpEventType.Response){
+      console.log(event.body);
+    }
+
+  }))
 }
 
 
