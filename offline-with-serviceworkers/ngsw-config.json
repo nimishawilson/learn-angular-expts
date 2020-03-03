@@ -14,7 +14,8 @@
           "/*.js"
         ],
         "urls": [
-          "https://fonts.googleapis.com/css?family=Oswald:300,700"
+          "https://fonts.googleapis.com/css?family=Oswald:300,700",
+          "https://fonts.gstatic.com/**"
         ]
       }
     }, {
@@ -26,6 +27,20 @@
           "/assets/**",
           "/*.(eot|svg|cur|jpg|png|webp|gif|otf|ttf|woff|woff2|ani)"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name":"posts",
+      "urls": [
+          "https://jsonplaceholder.typicode.com/posts"
+      ],
+      "cacheConfig": {
+        "maxsize": 50, //how many entries you want to cache(which means how many responses)
+        "maxAge": "7h",  //how old the data in the cache be.  for example 1d/12h/15m (day/hour/minutes)
+        "timeout": "10s",
+        "strategy": "freshness" //2 types of strategies. freshness - always try to reach back and forth and only use the cache if you are offline. performance - try to get something onto the screen as quick as possible
       }
     }
   ]
